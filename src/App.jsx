@@ -6,7 +6,7 @@ function App() {
 	console.log(books)
 	return (
 		<>
-			<h1>Hello World</h1>
+			<h1>Books</h1>
 			{books.length ? (
 				<div className='flex'>
 					{books.map((book) => {
