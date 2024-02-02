@@ -1,7 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
-import App from '../App'
-import ErrorPage from '../pages/error-page'
-import { fetchBooks } from '../api/api'
+import App from '@/App'
+import Book from '@pages/book'
+import ErrorPage from '@pages/error-page'
+import Account from '@pages/Account'
+import { fetchBooks, fetchBook } from '@/api/api'
+import PrivateRoute from '@context/isAuthenticated'
+import Login from '@pages/auth/Login'
 
 const router = createBrowserRouter([
 	{
@@ -9,6 +13,27 @@ const router = createBrowserRouter([
 		element: <App />,
 		errorElement: <ErrorPage />,
 		loader: fetchBooks,
+	},
+	{
+		path: 'book/:id',
+		element: <Book />,
+		errorElement: <ErrorPage />,
+		loader: fetchBook,
+	},
+	{
+		path: '/login',
+		element: <Login />,
+		errorElement: <ErrorPage />,
+	},
+	{
+		element: <PrivateRoute />,
+		children: [
+			{
+				path: '/account',
+				element: <Account />,
+				errorElement: <ErrorPage />,
+			},
+		],
 	},
 ])
 
