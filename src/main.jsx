@@ -6,9 +6,9 @@ import router from '@routes/router'
 import AuthWrapper from '@hooks/useAuth'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
-		<AuthWrapper>
-			<RouterProvider router={router} />
-		</AuthWrapper>
-	</React.StrictMode>
+  <React.StrictMode>
+    <AuthWrapper>
+      <RouterProvider router={router} />
+    </AuthWrapper>
+  </React.StrictMode>
 )

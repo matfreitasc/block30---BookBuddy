@@ -8,33 +8,33 @@ import PrivateRoute from '@context/isAuthenticated'
 import Login from '@pages/auth/Login'
 
 const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <App />,
-		errorElement: <ErrorPage />,
-		loader: fetchBooks,
-	},
-	{
-		path: 'book/:id',
-		element: <Book />,
-		errorElement: <ErrorPage />,
-		loader: fetchBook,
-	},
-	{
-		path: '/login',
-		element: <Login />,
-		errorElement: <ErrorPage />,
-	},
-	{
-		element: <PrivateRoute />,
-		children: [
-			{
-				path: '/account',
-				element: <Account />,
-				errorElement: <ErrorPage />,
-			},
-		],
-	},
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    loader: fetchBooks,
+  },
+  {
+    path: 'book/:id',
+    element: <Book />,
+    errorElement: <ErrorPage />,
+    loader: fetchBook,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: '/account',
+        element: <Account />,
+        errorElement: <ErrorPage />,
+      },
+    ],
+  },
 ])
 
 export default router
