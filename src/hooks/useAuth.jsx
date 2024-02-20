@@ -1,19 +1,7 @@
-import { createContext, useContext, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useContext } from 'react'
+import { AuthContext } from '@context/AuthProvider'
 
-const AuthContext = createContext()
-export const useAuth = () => useContext(AuthContext)
-
-function AuthWrapper({ children }) {
-  const [user, setUser] = useState(null)
-
-  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>
+const useAuth = () => {
+  return useContext(AuthContext)
 }
-
-export default AuthWrapper
-
-// PropTypes
-
-AuthWrapper.propTypes = {
-  children: PropTypes.node,
-}
+export default useAuth

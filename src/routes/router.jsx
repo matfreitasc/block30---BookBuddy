@@ -4,7 +4,7 @@ import Book from '@pages/book'
 import ErrorPage from '@pages/error-page'
 import Account from '@pages/Account'
 import { fetchBooks, fetchBook } from '@/api/api'
-import PrivateRoute from '@context/isAuthenticated'
+import AuthProvider from '@context/AuthProvider'
 import Login from '@pages/auth/Login'
 
 const router = createBrowserRouter([
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    element: <PrivateRoute />,
+    element: <AuthProvider />,
     children: [
       {
         path: '/account',

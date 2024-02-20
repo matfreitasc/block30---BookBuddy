@@ -1,5 +1,35 @@
 const url = 'https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/'
 
+const fetchBook = async ({ params }) => {
+  try {
+    const res = await fetch(`${url}books/${params.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const book = await res.json()
+    return book
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const updateBook = async ({ params }) => {
+  try {
+    const res = await fetch(`${url}books/${params.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const book = await res.json()
+    return book
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const fetchBooks = async () => {
   try {
     const res = await fetch(`${url}books`, {
@@ -15,21 +45,7 @@ const fetchBooks = async () => {
   }
 }
 
-const fetchBook = async ({ params }) => {
-  try {
-    const res = await fetch(`${url}books/${params.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    const book = await res.json()
-    return book
-  } catch (error) {
-    console.log(error)
-  }
-}
-function login(email, password) {
+const login = async ({ email, password }) => {
   fetch(url + 'users/login', {
     method: 'POST',
     headers: {
@@ -38,7 +54,7 @@ function login(email, password) {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      if (res.ok) {
+      if (res.status === 200) {
         return res.json()
       }
       throw res
@@ -50,7 +66,7 @@ function login(email, password) {
       return error
     })
 }
-function signup(email, password) {
+const signup = async ({ email, password }) => {
   fetch(url + 'users/register', {
     method: 'POST',
     headers: {
@@ -71,29 +87,22 @@ function signup(email, password) {
       return error
     })
 }
-function logout() {
-  localStorage.removeItem('token')
-}
-function getUser() {
-  fetch(url + 'users/me', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token') || '',
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      throw res
+
+const refreshToken = async ({ token }) => {
+  try {
+    const res = await fetch(`${url}users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer  ${token}`,
+      },
     })
-    .then((user) => {
-      return user
-    })
-    .catch((error) => {
-      return error
-    })
+    const user = await res.json()
+    console.log(user)
+    return user
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-export { fetchBooks, fetchBook, url as apiUrl, login, signup, logout, getUser }
+export { fetchBooks, fetchBook, url as apiUrl, login, signup, refreshToken, updateBook }
