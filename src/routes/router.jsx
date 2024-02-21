@@ -4,8 +4,8 @@ import Book from '@pages/book'
 import ErrorPage from '@pages/error-page'
 import Account from '@pages/Account'
 import { fetchBooks, fetchBook } from '@/api/api'
-import AuthProvider from '@context/AuthProvider'
 import Login from '@pages/auth/Login'
+import RequireAuth from '@components/RequireAuth'
 
 const router = createBrowserRouter([
   {
@@ -21,15 +21,15 @@ const router = createBrowserRouter([
     loader: fetchBook,
   },
   {
-    path: '/login',
+    path: 'login',
     element: <Login />,
     errorElement: <ErrorPage />,
   },
   {
-    element: <AuthProvider />,
+    element: <RequireAuth />,
     children: [
       {
-        path: '/account',
+        path: 'account',
         element: <Account />,
         errorElement: <ErrorPage />,
       },

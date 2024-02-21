@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { login } from '@api/api'
 import { useNavigate } from 'react-router-dom'
+import useAuth from '@hooks/useAuth'
 
 const Login = () => {
   const navigate = useNavigate()
+  const { setAuth } = useAuth()
 
   const [clicked, setClicked] = useState(false)
 
@@ -16,6 +18,12 @@ const Login = () => {
     e.preventDefault()
     const email = e.target.email.value
     const password = e.target.password.value
+    const user = await login({ email, password })
+    if (user.error) {
+      setError(true)
+      return
+    }
+    navigate('/account')
   }
 
   return (
