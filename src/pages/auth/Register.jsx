@@ -12,8 +12,7 @@ export const Register = () => {
   const { setAuth } = useAuth()
 
   const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from === '/login' ? '/' : location.state?.from || '/'
+  const from = '/'
 
   const [clicked, setClicked] = useState(false)
 
