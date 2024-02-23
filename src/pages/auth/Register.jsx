@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { apiUrl } from '@api/api'
-import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import useAuth from '@hooks/useAuth'
 
 import { refreshToken } from '@api/api'

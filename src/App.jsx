@@ -1,9 +1,12 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useSearchParams } from 'react-router-dom'
 import '@/App.css'
 import useAuth from '@hooks/useAuth'
 
 function App() {
   const { auth } = useAuth()
+  let [searchParams, setSearchParams] = useSearchParams()
+  console.log(searchParams)
+
   return (
     <>
       <nav className='flex flex-row items-center justify-between px-4 py-2 text-white bg-slate-600'>
@@ -19,6 +22,7 @@ function App() {
             name='search'
             autoComplete='off'
             id='search'
+            onChange={(e) => setSearchParams({ search: e.target.value.toLowerCase() })}
             placeholder='Search'
           />
         </div>
