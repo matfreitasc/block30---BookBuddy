@@ -15,13 +15,15 @@ const fetchBook = async ({ params }) => {
   }
 }
 
-const updateBook = async ({ params }) => {
+const reserveBook = async ({ id, token, available }) => {
   try {
-    const res = await fetch(`${url}/books/${params.id}`, {
-      method: 'PUT',
+    const res = await fetch(`${url}/books/${id}/reserve`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({ available }),
     })
     const book = await res.json()
     return book
@@ -61,4 +63,4 @@ const refreshToken = async (token) => {
   }
 }
 
-export { fetchBooks, fetchBook, url as apiUrl, refreshToken, updateBook }
+export { fetchBooks, fetchBook, url as apiUrl, refreshToken, reserveBook }

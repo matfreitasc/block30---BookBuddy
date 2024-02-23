@@ -10,7 +10,9 @@ function App() {
   return (
     <>
       <nav className='flex flex-row items-center justify-between px-4 py-2 text-white bg-slate-600'>
-        <img src='favicon.ico' alt='logo' />
+        <Link to='/'>
+          <img src='/favicon.ico' alt='logo' />
+        </Link>
         <div className=''>
           <label htmlFor='search' className='sr-only'>
             Search
