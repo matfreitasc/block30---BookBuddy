@@ -6,34 +6,47 @@ import Account from '@pages/Account'
 import { fetchBooks, fetchBook } from '@/api/api'
 import Login from '@pages/auth/Login'
 import RequireAuth from '@components/RequireAuth'
+import PersistLogin from '@components/PersistLogin'
+import Books from '@components/Books'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
-    loader: fetchBooks,
-  },
-  {
-    path: 'book/:id',
-    element: <Book />,
-    errorElement: <ErrorPage />,
-    loader: fetchBook,
+    children: [
+      {
+        index: true,
+        element: <Books />,
+        loader: fetchBooks,
+      },
+      {
+        path: 'book/:id',
+        element: <Book />,
+        errorElement: <ErrorPage />,
+        loader: fetchBook,
+      },
+      {
+        element: <PersistLogin />,
+        children: [
+          {
+            element: <RequireAuth />,
+            children: [
+              {
+                path: 'account',
+                element: <Account />,
+                errorElement: <ErrorPage />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'login',
     element: <Login />,
     errorElement: <ErrorPage />,
-  },
-  {
-    element: <RequireAuth />,
-    children: [
-      {
-        path: 'account',
-        element: <Account />,
-        errorElement: <ErrorPage />,
-      },
-    ],
   },
 ])
 

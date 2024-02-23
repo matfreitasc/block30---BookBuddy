@@ -2,21 +2,18 @@ import useAuth from './useAuth'
 import { refreshToken } from '@api/api'
 
 const useRefreshToken = () => {
-  const { auth, setAuth } = useAuth()
-
+  const { setAuth } = useAuth()
   const refresh = async () => {
-    console.log('refreshing token')
-    console.log(auth)
-    const res = await refreshToken(auth.token)
-    console.log(res)
-    if (res.status === 200) {
-      setAuth((prev) => {
-        console.log(JSON.stringify(prev))
-        console.log(JSON.stringify(res))
-        return { ...prev, token: res.token }
-      })
-    }
-    throw res.message
+    const res = await refreshToken(JSON.parse(localStorage.getItem('token')).token)
+    setAuth((prev) => {
+      return {
+        ...prev,
+        user: res.user,
+        token: res.token,
+      }
+    })
+
+    return res
   }
 
   return refresh

@@ -6,7 +6,7 @@ const Book = () => {
     <>
       <div key={book.id} className='card'>
         <h2 className='title'>{book.title}</h2>
-        <img src={book.coverimage} alt={book.title} className='img' />
+        <img src={book.coverimage} alt={book.description} className='img' />
       </div>
       <div>
         <p>

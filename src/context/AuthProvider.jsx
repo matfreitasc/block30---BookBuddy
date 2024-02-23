@@ -4,12 +4,14 @@ import PropTypes from 'prop-types'
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
+  const [auth, setAuth] = useState({})
 
-  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>
 }
 
-export default AuthProvider
+export default AuthContext
+
+
 
 AuthProvider.propTypes = {
   children: PropTypes.node,

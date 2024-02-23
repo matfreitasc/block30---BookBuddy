@@ -1,11 +1,19 @@
 import { useState } from 'react'
-import { login } from '@api/api'
-import { useNavigate } from 'react-router-dom'
+import { apiUrl } from '@api/api'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import useAuth from '@hooks/useAuth'
 
+import { refreshToken } from '@api/api'
+
 const Login = () => {
-  const navigate = useNavigate()
+  // set page title
+  document.title = 'Login Page'
+
   const { setAuth } = useAuth()
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from
 
   const [clicked, setClicked] = useState(false)
 
@@ -16,14 +24,22 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const email = e.target.email.value
-    const password = e.target.password.value
-    const user = await login({ email, password })
-    if (user.error) {
+    const response = await fetch(`${apiUrl}/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+      const tokenResponse = await refreshToken(data.token)
+      localStorage.setItem('token', JSON.stringify(tokenResponse))
+      setAuth(tokenResponse)
+      navigate(from, { replace: true })
+    } else {
       setError(true)
-      return
     }
-    navigate('/account')
   }
 
   return (
@@ -68,15 +84,19 @@ const Login = () => {
             autoComplete='off'
             className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300'
           />
-          {error && <p className='text-red-500 text-sm mt-2 p-2 font-bold'>Invalid email or password</p>}
+          {error && <p className='p-2 mt-2 text-sm font-bold text-red-500'>Invalid email or password</p>}
         </div>
         <button
           type='submit'
+          onClick={handleSubmit}
           className='w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300'
         >
           Login
         </button>
       </form>
+      <Link>
+        <p className='mt-4 text-sm text-blue-500 underline'>Forgot password?</p>
+      </Link>
     </section>
   )
 }
