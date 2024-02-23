@@ -13,6 +13,7 @@ export const Login = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
+  console.log(location)
   const from = location.state?.from || '/'
 
   const [clicked, setClicked] = useState(false)
