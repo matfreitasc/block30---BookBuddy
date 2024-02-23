@@ -1,13 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '@/App'
-import Book from '@pages/book'
-import ErrorPage from '@pages/error-page'
-import Account from '@pages/Account'
+
+
 import { fetchBooks, fetchBook } from '@/api/api'
-import Login from '@pages/auth/Login'
+
 import RequireAuth from '@components/RequireAuth'
 import PersistLogin from '@components/PersistLogin'
 import Books from '@components/Books'
+
+import { Login, Register, ErrorPage, Account, Book } from '@pages'
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,15 @@ const router = createBrowserRouter([
     path: 'login',
     element: <Login />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: 'register',
+    element: <Register />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <ErrorPage />,
   },
 ])
 

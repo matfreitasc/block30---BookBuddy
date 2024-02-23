@@ -1,7 +1,9 @@
 import { Link, Outlet } from 'react-router-dom'
 import '@/App.css'
+import useAuth from '@hooks/useAuth'
 
 function App() {
+  const { auth } = useAuth()
   return (
     <>
       <nav className='flex flex-row items-center justify-between px-4 py-2 text-white bg-slate-600'>
@@ -25,7 +27,7 @@ function App() {
             <Link to='/'>Home</Link>
           </li>
           <li className='px-4 py-2 rounded-md hover:bg-slate-800'>
-            <Link to='account'>Account</Link>
+            {auth.user ? <Link to='account'>Account</Link> : <Link to='login'>Login</Link>}
           </li>
         </ul>
       </nav>

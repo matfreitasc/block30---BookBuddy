@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom'
 
-const Book = () => {
+export const Book = () => {
   const { book } = useLoaderData()
   return (
     <>
@@ -26,4 +26,4 @@ const Book = () => {
   )
 }
 
-export default Book
+

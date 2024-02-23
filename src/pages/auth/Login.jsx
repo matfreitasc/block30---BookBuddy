@@ -5,7 +5,7 @@ import useAuth from '@hooks/useAuth'
 
 import { refreshToken } from '@api/api'
 
-const Login = () => {
+export const Login = () => {
   // set page title
   document.title = 'Login Page'
 
@@ -13,7 +13,7 @@ const Login = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const from = location.state?.from
+  const from = location.state?.from || '/'
 
   const [clicked, setClicked] = useState(false)
 
@@ -94,11 +94,11 @@ const Login = () => {
           Login
         </button>
       </form>
-      <Link>
-        <p className='mt-4 text-sm text-blue-500 underline'>Forgot password?</p>
+      <Link className='inline-block mt-4 text-sm' to='/register'>
+        No Account?
+        <span className='ml-2 text-blue-500 underline '>Create One</span>
       </Link>
     </section>
   )
 }
 
-export default Login
