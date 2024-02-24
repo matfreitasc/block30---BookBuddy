@@ -4,8 +4,7 @@ import useAuth from '@hooks/useAuth'
 
 function App() {
   const { auth } = useAuth()
-  let [searchParams, setSearchParams] = useSearchParams()
-  console.log(searchParams)
+  let [setSearchParams] = useSearchParams()
 
   return (
     <>

@@ -4,7 +4,7 @@ const Books = () => {
   const { books } = useLoaderData()
   const [searchParams] = useSearchParams()
   // get params from url to filter books
-  document.title = 'Bookk Buddy'
+  document.title = 'Book Buddy'
 
   return (
     <>
