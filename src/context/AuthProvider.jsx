@@ -4,7 +4,12 @@ import PropTypes from 'prop-types'
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({})
+  const [auth, setAuth] = useState(
+    JSON.parse(localStorage.getItem('token')) || {
+      token: null,
+      user: null,
+    }
+  )
 
   return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>
 }

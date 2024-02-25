@@ -17,7 +17,7 @@ const fetchBook = async ({ params }) => {
 
 const reserveBook = async ({ id, token, available }) => {
   try {
-    const res = await fetch(`${url}/books/${id}/reserve`, {
+    const res = await fetch(`${url}/books/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -26,6 +26,9 @@ const reserveBook = async ({ id, token, available }) => {
       body: JSON.stringify({ available }),
     })
     const book = await res.json()
+    if (!res.ok) {
+      throw new Error('Error reserving book')
+    }
     return book
   } catch (error) {
     console.log(error)
@@ -63,4 +66,41 @@ const refreshToken = async (token) => {
   }
 }
 
-export { fetchBooks, fetchBook, url as apiUrl, refreshToken, reserveBook }
+const reservations = async (token) => {
+  try {
+    const res = await fetch(`${url}/reservations`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    const reservations = await res.json()
+    return reservations
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deleteReservation = async ({ token, id }) => {
+  try {
+    const res = await fetch(`${url}/reservations/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    const { deletedReservation } = await res.json()
+    if (!res.ok) {
+      throw new Error('Error deleting reservation')
+    }
+    // const bookId = deletedReservation.bookid
+    // const returnedBook = await reserveBook({ id: bookId, token, available: true })
+    return deletedReservation
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export { fetchBooks, fetchBook, url as apiUrl, refreshToken, reserveBook, reservations, deleteReservation }

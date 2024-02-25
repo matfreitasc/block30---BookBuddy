@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <nav className='flex flex-row items-center justify-between px-4 py-2 text-white bg-slate-600'>
+      <nav className='sticky top-0 z-10 flex flex-row items-center justify-between px-4 py-2 text-white bg-slate-600'>
         <Link to='/'>
           <img src='/favicon.ico' alt='logo' />
         </Link>
@@ -33,6 +33,22 @@ function App() {
           </li>
           <li className='px-4 py-2 rounded-md hover:bg-slate-800'>
             {auth.user ? <Link to='account'>Account</Link> : <Link to='login'>Login</Link>}
+          </li>
+          <li>
+            {auth.user ? (
+              <button
+                className='px-4 py-2 text-white bg-red-500 rounded-md'
+                onClick={() => {
+                  localStorage.removeItem('auth')
+
+                  window.location.href = '/'
+                }}
+              >
+                Logout
+              </button>
+            ) : (
+              ''
+            )}
           </li>
         </ul>
       </nav>
