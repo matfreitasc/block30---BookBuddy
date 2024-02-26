@@ -4,6 +4,7 @@ const Books = () => {
   const { books } = useLoaderData()
   // get params from url to filter books
   const [searchParams] = useSearchParams()
+
   document.title = 'Book Buddy'
 
   return (
@@ -37,7 +38,7 @@ const Books = () => {
                         book.available ? 'bg-green-600' : 'bg-gray-500 '
                       }`}
                     >
-                      {book.available ? 'Available' : 'Reserved'}
+                      {book?.available ? 'Available' : 'Reserved'}
                     </span>
                   </div>
                 </div>

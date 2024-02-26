@@ -9,6 +9,9 @@ const fetchBook = async ({ params }) => {
       },
     })
     const book = await res.json()
+    if (!res.ok) {
+      throw new Error('Error fetching book')
+    }
     return book
   } catch (error) {
     console.log(error)
@@ -95,8 +98,6 @@ const deleteReservation = async ({ token, id }) => {
     if (!res.ok) {
       throw new Error('Error deleting reservation')
     }
-    // const bookId = deletedReservation.bookid
-    // const returnedBook = await reserveBook({ id: bookId, token, available: true })
     return deletedReservation
   } catch (error) {
     console.log(error)

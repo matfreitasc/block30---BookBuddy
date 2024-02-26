@@ -20,6 +20,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Books />,
         loader: fetchBooks,
+        errorElement: <ErrorPage />,
       },
       {
         path: 'book/:id',
