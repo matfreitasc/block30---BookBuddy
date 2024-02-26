@@ -3,6 +3,7 @@ import { deleteReservation } from '@api/api'
 import { useEffect, useState } from 'react'
 import { reservations } from '@/api/api'
 
+
 export const Account = () => {
   const { auth, setAuth } = useAuth()
   const [notifications, setNotifications] = useState([])
@@ -60,17 +61,34 @@ export const Account = () => {
           </div>
         ))}
 
-      <div className='w-[50%] h-[calc(100vh-100px)] bg-red-300 flex flex-col'>
+      <div className='w-[50%] h-[calc(100vh-100px)] flex flex-col mt-24 items-center'>
         <h1>Account</h1>
-        <p>{`${auth?.user?.firstname} ${auth?.user?.lastname}`}</p>
+        <span className='relative w-32 h-32 rounded-full shadow-lg bg-slate-300'>
+          <p className='flex items-center justify-center w-full h-full text-4xl bg-transparent text-slate-500'>
+            {auth?.user?.firstname?.charAt(0).toUpperCase()}
+            {''} {auth?.user?.lastname?.charAt(0).toUpperCase()}
+          </p>
+        </span>
+        <h2>
+          {auth?.user?.firstname} {auth?.user?.lastname}
+        </h2>
         <p>{auth?.user?.email}</p>
       </div>
-      <div className='w-[50%] bg-red-900'>
+      <div className='w-[50%] mt-12 '>
+        <h1 className='p-2 text-3xl text-center'>Books</h1>
         {auth?.user?.books?.map((book) => (
-          <div key={book.id}>
-            <h1>{book.title}</h1>
-            <p>{book.author}</p>
+          <div
+            key={book.id}
+            className='flex flex-row items-center w-full gap-2 p-4 rounded-md flex-nowrap bg-slate-300'
+          >
+            <img src={book.coverimage} alt={book.description} className='w-32 h-32' />
+
+            <div className='text-slate-700'>
+              <h1>Title: {book.title}</h1>
+              <p>Author: {book.author}</p>
+            </div>
             <button
+              className='px-4 py-2 ml-auto text-white bg-red-500 rounded-md'
               onClick={() => {
                 handleDelete(book.id, book.title)
               }}
